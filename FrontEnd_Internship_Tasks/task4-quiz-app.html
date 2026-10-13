@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JavaScript Quiz | Task 4</title>
+  <style>
+    :root{--bg:#1e1b4b;--card:#fff;--ink:#1f2937;--accent:#6d28d9;--accent-d:#4c1d95;--err:#b91c1c}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);font-family:system-ui,sans-serif;padding:1rem}
+    .quiz{background:var(--card);width:100%;max-width:520px;border-radius:14px;padding:1.6rem;color:var(--ink)}
+    .progress{font-size:.9rem;color:#6b7280}
+    h1{font-size:1.3rem;margin:.4rem 0 1rem}
+    fieldset{border:0;padding:0;margin:0;display:grid;gap:.6rem}
+    label{display:block;border:2px solid #e5e7eb;border-radius:8px;padding:.7rem .9rem;cursor:pointer}
+    label:hover{border-color:var(--accent)}
+    input{margin-right:.6rem}
+    label:has(input:checked){border-color:var(--accent);background:#f3effe}
+    #error{color:var(--err);min-height:1.4rem;margin:.8rem 0 .2rem;font-size:.9rem}
+    button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.7rem 1.4rem;font-size:1rem;cursor:pointer}
+    button:hover{background:var(--accent-d)}
+    .score{font-size:2.4rem;font-weight:700;margin:.5rem 0}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <main class="quiz" id="quiz">
+    <div id="game">
+      <div class="progress" id="progress"></div>
+      <h1 id="question"></h1>
+      <form id="form" novalidate>
+        <fieldset id="options"></fieldset>
+        <p id="error" role="alert"></p>
+        <button type="submit" id="next">Next</button>
+      </form>
+    </div>
+    <div id="result" class="hidden">
+      <h1>Quiz complete</h1>
+      <div class="score" id="score"></div>
+      <p id="message"></p>
+      <button type="button" id="restart">Try again</button>
+    </div>
+  </main>
+
+  <script>
+    const questions = [
+      {q:'Which keyword declares a block-scoped variable that can be reassigned?', o:['var','let','const','static'], a:1},
+      {q:'What does DOM stand for?', o:['Data Object Model','Document Object Model','Display Output Method','Digital Ordered Map'], a:1},
+      {q:'Which method adds an element to the end of an array?', o:['push()','pop()','shift()','concat()'], a:0},
+      {q:'What does "3" + 4 evaluate to in JavaScript?', o:['7','"34"','NaN','Error'], a:1}
+    ];
+    let index = 0, score = 0;
+    const $ = id => document.getElementById(id);
+
+    function render(){
+      const item = questions[index];
+      $('progress').textContent = `Question ${index+1} of ${questions.length}`;
+      $('question').textContent = item.q;
+      $('error').textContent = '';
+      $('next').textContent = index === questions.length-1 ? 'Finish' : 'Next';
+      $('options').innerHTML = '';
+      item.o.forEach((text,i) => {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'radio'; input.name = 'answer'; input.value = i;
+        label.append(input, text);          // textContent-safe: no innerHTML for data
+        $('options').append(label);
+      });
+    }
+
+    $('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const chosen = document.querySelector('input[name="answer"]:checked');
+      if(!chosen){ $('error').textContent = 'Please select an answer to continue.'; return; }  // validation
+      if(Number(chosen.value) === questions[index].a) score++;
+      index++;
+      index < questions.length ? render() : showResult();
+    });
+
+    function showResult(){
+      $('game').classList.add('hidden');
+      $('result').classList.remove('hidden');
+      $('score').textContent = `${score} / ${questions.length}`;
+      $('message').textContent = score === questions.length ? 'Perfect score!' : score >= questions.length/2 ? 'Good job. Review the ones you missed.' : 'Keep practising, you will get there.';
+    }
+
+    $('restart').addEventListener('click', () => {
+      index = 0; score = 0;
+      $('result').classList.add('hidden'); $('game').classList.remove('hidden'); render();
+    });
+    render();
+  </script>
+</body>
+</html>

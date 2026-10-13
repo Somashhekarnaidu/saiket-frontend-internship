@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A short guide to why semantic HTML matters.">
+  <title>Why Semantic HTML Still Matters | Task 1</title>
+  <style>
+    /* Minimal styling so the semantic structure reads well in the browser */
+    body{font-family:Georgia,serif;line-height:1.7;max-width:42rem;margin:0 auto;padding:1.5rem;color:#1f2933;background:#fbfaf7}
+    h1{font-size:2.1rem;line-height:1.2;margin:.2em 0}
+    .meta{color:#5f6c7b;font-family:system-ui,sans-serif;font-size:.9rem}
+    img{max-width:100%;height:auto;border-radius:6px}
+    figcaption{font-size:.85rem;color:#5f6c7b;text-align:center;margin-top:.4rem}
+    a{color:#0b5fa5}
+    a:focus-visible{outline:3px solid #f5b700;outline-offset:2px}
+    footer{border-top:1px solid #d9d4c7;margin-top:2rem;padding-top:1rem}
+  </style>
+</head>
+<body>
+  <article>
+    <header>
+      <h1>Why Semantic HTML Still Matters</h1>
+      <p class="meta">
+        By <address style="display:inline;font-style:normal"><a rel="author" href="#">N. Somasekhar Naidu</a></address>
+        &middot; Published on <time datetime="2026-10-12">12 October 2026</time>
+      </p>
+    </header>
+
+    <figure>
+      <img alt="Illustration of a page outline with header, main and footer blocks"
+           width="640" height="320"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 320'%3E%3Crect width='640' height='320' fill='%23e8f1f8'/%3E%3Crect x='60' y='30' width='520' height='50' rx='6' fill='%230b5fa5'/%3E%3Crect x='60' y='95' width='150' height='170' rx='6' fill='%23f5b700'/%3E%3Crect x='225' y='95' width='355' height='120' rx='6' fill='%23ffffff' stroke='%230b5fa5' stroke-width='3'/%3E%3Crect x='225' y='230' width='355' height='35' rx='6' fill='%231f2933'/%3E%3Ctext x='320' y='62' fill='white' font-family='sans-serif' font-size='20' text-anchor='middle'%3Eheader%3C/text%3E%3Ctext x='135' y='185' font-family='sans-serif' font-size='18' text-anchor='middle'%3Enav%3C/text%3E%3Ctext x='402' y='162' font-family='sans-serif' font-size='20' text-anchor='middle'%3Emain / article%3C/text%3E%3Ctext x='402' y='253' fill='white' font-family='sans-serif' font-size='16' text-anchor='middle'%3Efooter%3C/text%3E%3C/svg%3E">
+      <figcaption>The basic regions of a semantic page.</figcaption>
+    </figure>
+
+    <section aria-labelledby="intro">
+      <h2 id="intro">Introduction</h2>
+      <p>Every page can be built from nothing but <code>&lt;div&gt;</code> elements, and it will look fine. But browsers, search engines and screen readers cannot tell what those boxes mean. Semantic HTML gives each part of the page a name.</p>
+    </section>
+
+    <section aria-labelledby="content">
+      <h2 id="content">Main Content: What You Gain</h2>
+      <ul>
+        <li><strong>Accessibility:</strong> screen readers can jump straight to <code>&lt;main&gt;</code> or <code>&lt;nav&gt;</code>.</li>
+        <li><strong>SEO:</strong> search engines understand headings, articles and dates.</li>
+        <li><strong>Maintainability:</strong> teammates read <code>&lt;article&gt;</code> faster than <code>&lt;div class="box3"&gt;</code>.</li>
+        <li><strong>Free behaviour:</strong> native elements such as <code>&lt;button&gt;</code> and <code>&lt;details&gt;</code> handle keyboard and focus for you.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="conclusion">
+      <h2 id="conclusion">Conclusion</h2>
+      <p>Choose the element that describes the content, then style it. Semantic markup costs nothing extra and makes every later step (CSS, JavaScript, testing) easier.</p>
+    </section>
+
+    <footer>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics#semantic_elements" target="_blank" rel="noopener noreferrer">Read More</a></p>
+    </footer>
+  </article>
+</body>
+</html>

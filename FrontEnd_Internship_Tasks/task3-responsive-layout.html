@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Responsive Layout | Task 3</title>
+  <style>
+    :root{--header:#14213d;--side:#fca311;--main:#ffffff;--footer:#14213d;--page:#e5e5e5;--ink:#1b1b1b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,sans-serif;color:var(--ink);background:var(--page)}
+    .layout{display:grid;min-height:100vh;gap:12px;padding:12px;
+      grid-template-columns:240px 1fr;
+      grid-template-rows:auto 1fr auto;
+      grid-template-areas:"header header" "sidebar main" "footer footer"}
+    header{grid-area:header;background:var(--header);color:#fff}
+    aside{grid-area:sidebar;background:var(--side)}
+    main{grid-area:main;background:var(--main)}
+    footer{grid-area:footer;background:var(--footer);color:#fff;text-align:center}
+    header,aside,main,footer{padding:1.2rem;border-radius:10px}
+    h1,h2{margin-top:0}
+    nav ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+    nav a{display:block;padding:.5rem .7rem;border-radius:6px;color:var(--ink);text-decoration:none;background:rgba(255,255,255,.45)}
+    nav a:hover,nav a:focus-visible{background:#fff}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1rem}
+    .cards div{background:#f3f4f6;padding:1rem;border-radius:8px}
+
+    /* Tablet and mobile: switch from grid areas to a stacked layout */
+    @media (max-width:768px){
+      .layout{grid-template-columns:1fr;grid-template-rows:auto;
+        grid-template-areas:"header" "sidebar" "main" "footer";min-height:auto}
+      nav ul{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <header><h1>My Responsive Site</h1><p>Resize the window to see the layout change.</p></header>
+    <aside>
+      <nav aria-label="Primary"><ul>
+        <li><a href="#">Home</a></li><li><a href="#">Articles</a></li>
+        <li><a href="#">Projects</a></li><li><a href="#">Contact</a></li>
+      </ul></nav>
+    </aside>
+    <main>
+      <h2>Main Content</h2>
+      <p>On screens wider than 768px the page uses CSS Grid with a fixed sidebar. On smaller screens the same four sections stack in reading order.</p>
+      <div class="cards">
+        <div><h3>Fast</h3><p>No frameworks, just CSS.</p></div>
+        <div><h3>Flexible</h3><p>Cards wrap with auto-fit.</p></div>
+        <div><h3>Accessible</h3><p>Semantic tags and focus styles.</p></div>
+      </div>
+    </main>
+    <footer><small>&copy; 2026 My Responsive Site</small></footer>
+  </div>
+</body>
+</html>

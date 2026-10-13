@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northwind Cloud | Task 6 Landing Page</title>
+  <style>
+    :root{--navy:#0b1f3a;--blue:#1769e0;--sky:#e8f1fd;--ink:#14213d;--muted:#5b6b82;--line:#d8e2f0;--ok:#0a7d4f;--err:#b42318}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;color:var(--ink);line-height:1.6}
+    a{color:inherit}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+    :focus-visible{outline:3px solid #f5b700;outline-offset:2px}
+
+    /* Header */
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:10}
+    .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .logo{font-weight:800;font-size:1.2rem;text-decoration:none;color:var(--navy)}
+    nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0}
+    nav a{text-decoration:none;color:var(--muted);font-weight:500}
+    nav a:hover{color:var(--blue)}
+    .menu{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+
+    /* Hero */
+    .hero{background:var(--navy);color:#fff;padding:5rem 0}
+    .hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;align-items:center}
+    .hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:0 0 1rem}
+    .hero p{color:#b9c8de;font-size:1.1rem;max-width:34rem}
+    .btn{display:inline-block;background:var(--blue);color:#fff;padding:.8rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:1rem;transition:background .2s}
+    .btn:hover{background:#0f52b8}
+    .status{background:#12305a;border-radius:12px;padding:1.4rem}
+    .status h2{margin:0 0 .8rem;font-size:1rem;color:#b9c8de;font-weight:500}
+    .stat{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid #1f4478}
+    .stat:last-child{border:0}
+    .stat b{font-variant-numeric:tabular-nums}
+
+    /* Sections */
+    section{padding:4rem 0}
+    h2.title{font-size:1.9rem;margin:0 0 .5rem}
+    .sub{color:var(--muted);margin:0 0 2rem}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .feature{border:1px solid var(--line);border-radius:12px;padding:1.4rem;background:#fff}
+    .feature h3{margin:.2rem 0 .4rem}
+    .feature p{margin:0;color:var(--muted)}
+    .alt{background:var(--sky)}
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .plan{background:#fff;border:2px solid var(--line);border-radius:12px;padding:1.5rem;cursor:pointer;text-align:left;font:inherit;color:inherit}
+    .plan[aria-pressed=true]{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,105,224,.15)}
+    .plan .price{font-size:1.8rem;font-weight:800;display:block;margin:.3rem 0}
+    .toggle{display:flex;gap:.6rem;align-items:center;margin-bottom:1.4rem}
+
+    /* Contact */
+    form{max-width:520px;display:grid;gap:.9rem}
+    label{font-weight:600;display:grid;gap:.3rem}
+    input,textarea{font:inherit;padding:.7rem .8rem;border:2px solid var(--line);border-radius:8px}
+    input:focus,textarea:focus{border-color:var(--blue);outline:none}
+    .error{color:var(--err);font-weight:400;font-size:.85rem;min-height:1em}
+    #formMsg{color:var(--ok);font-weight:600}
+    footer{background:var(--navy);color:#b9c8de;text-align:center;padding:1.5rem}
+
+    @media (max-width:800px){
+      .menu{display:block}
+      nav{position:absolute;top:64px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);display:none}
+      nav.open{display:block}
+      nav ul{flex-direction:column;gap:0;padding:.5rem 1.2rem}
+      nav li a{display:block;padding:.7rem 0}
+      .hero .wrap,.grid,.plans{grid-template-columns:1fr}
+      .hero{padding:3rem 0}
+    }
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="logo" href="#top">Northwind Cloud</a>
+      <button class="menu" id="menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">&#9776;</button>
+      <nav id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Host your apps without managing servers</h1>
+          <p>Deploy in minutes, scale automatically and pay only for what you use.</p>
+          <a class="btn" href="#contact">Start free trial</a>
+        </div>
+        <aside class="status" aria-label="Platform stats">
+          <h2>Platform today</h2>
+          <div class="stat"><span>Uptime</span><b data-count="99.99" data-dec="2" data-suffix="%">0</b></div>
+          <div class="stat"><span>Apps deployed</span><b data-count="12840">0</b></div>
+          <div class="stat"><span>Regions</span><b data-count="14">0</b></div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <h2 class="title">Built for small teams</h2>
+        <p class="sub">Everything you need to ship, nothing you have to babysit.</p>
+        <div class="grid">
+          <article class="feature"><h3>One-click deploy</h3><p>Connect a repository and every push goes live.</p></article>
+          <article class="feature"><h3>Auto scaling</h3><p>Traffic spike at midnight? We add capacity for you.</p></article>
+          <article class="feature"><h3>Clear billing</h3><p>One invoice with a line for each app. No surprises.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="alt">
+      <div class="wrap">
+        <h2 class="title">Pricing</h2>
+        <div class="toggle">
+          <input type="checkbox" id="yearly"><label for="yearly" style="display:inline">Bill yearly (save 20%)</label>
+        </div>
+        <div class="plans" id="plans">
+          <button class="plan" aria-pressed="false" data-m="9"><strong>Starter</strong><span class="price"></span>For side projects</button>
+          <button class="plan" aria-pressed="true" data-m="29"><strong>Team</strong><span class="price"></span>For growing products</button>
+          <button class="plan" aria-pressed="false" data-m="99"><strong>Business</strong><span class="price"></span>For critical workloads</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <h2 class="title">Talk to us</h2>
+        <p class="sub">Tell us what you are building and we will reply within one working day.</p>
+        <form id="form" novalidate>
+          <label>Name<input id="name" autocomplete="name"><span class="error" id="eName"></span></label>
+          <label>Email<input id="email" type="email" autocomplete="email"><span class="error" id="eEmail"></span></label>
+          <label>Message<textarea id="msg" rows="4"></textarea><span class="error" id="eMsg"></span></label>
+          <button class="btn" type="submit">Send message</button>
+          <p id="formMsg" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer><small>&copy; 2026 Northwind Cloud (demo page for practice)</small></footer>
+
+  <script>
+    // Mobile menu
+    const menu = document.getElementById('menu'), nav = document.getElementById('nav');
+    menu.onclick = () => { const o = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', o); };
+    nav.addEventListener('click', e => { if(e.target.tagName==='A'){ nav.classList.remove('open'); menu.setAttribute('aria-expanded', false);} });
+
+    // Count-up stats
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const end = parseFloat(el.dataset.count), dec = +el.dataset.dec || 0, suf = el.dataset.suffix || '';
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let start = null;
+      const step = ts => {
+        start ??= ts;
+        const p = reduce ? 1 : Math.min((ts-start)/1200, 1);
+        el.textContent = (end*p).toLocaleString('en-IN',{minimumFractionDigits:dec,maximumFractionDigits:dec}) + suf;
+        if(p<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+
+    // Pricing toggle + plan selection
+    const yearly = document.getElementById('yearly'), plans = [...document.querySelectorAll('.plan')];
+    function prices(){ plans.forEach(p => {
+      const m = +p.dataset.m, v = yearly.checked ? Math.round(m*0.8) : m;
+      p.querySelector('.price').textContent = '$' + v + '/mo';
+    });}
+    yearly.onchange = prices; prices();
+    plans.forEach(p => p.onclick = () => plans.forEach(x => x.setAttribute('aria-pressed', x === p)));
+
+    // Contact form validation
+    const f = document.getElementById('form');
+    const set = (id, text) => { document.getElementById(id).textContent = text; return !text; };
+    f.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = f.name.value.trim(), email = f.email.value.trim(), msg = f.msg.value.trim();
+      const a = set('eName', name ? '' : 'Enter your name.');
+      const b = set('eEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'Enter a valid email address.');
+      const c = set('eMsg', msg.length >= 10 ? '' : 'Write at least 10 characters.');
+      const out = document.getElementById('formMsg');
+      if(a && b && c){ out.textContent = `Thanks ${name}, message sent.`; f.reset(); } else out.textContent = '';
+    });
+  </script>
+</body>
+</html>
